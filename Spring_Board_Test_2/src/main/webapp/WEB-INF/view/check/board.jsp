@@ -32,7 +32,7 @@
 <c:if test="${modify == 1 }">
 	<script type="text/javascript">
 		alert("수정 성공");
-		location.href= "${pageContext.request.contextPath}/board";
+		location.href= "${pageContext.request.contextPath}/board/view/" + ${modifyIdx};
 	</script>
 </c:if>
 <c:if test="${modify == 0 }">

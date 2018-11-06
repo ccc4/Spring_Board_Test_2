@@ -62,6 +62,7 @@ public class BoardController {
 			Board board) {
 		
 		board.setId(user.getId());
+		board.setContents(board.getContents().replace("\r\n", "<br>"));
 		Object result = service.write(board);
 		model.addAttribute("write", result);
 		
@@ -71,7 +72,8 @@ public class BoardController {
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public String modify(Model model, @RequestParam int idx) {
 		
-		Object result = service.view(idx);
+		Board result = service.view(idx);
+		result.setContents(result.getContents().replace("<br>", "\r\n"));
 		model.addAttribute("board", result);
 		
 		return "board/modify";
@@ -79,8 +81,10 @@ public class BoardController {
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modify(Model model, Board board) {
 		
+		board.setContents(board.getContents().replace("\r\n", "<br>"));
 		Object result = service.modify(board);
 		model.addAttribute("modify", result);
+		model.addAttribute("modifyIdx", board.getIdx());
 		
 		return RESULT_CHECK;
 	}
